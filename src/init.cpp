@@ -1177,7 +1177,7 @@ static ChainstateLoadResult InitAndLoadChainstate(
     NodeContext& node,
     bool do_reindex,
     const bool do_reindex_chainstate,
-    CacheSizes& cache_sizes,
+    const CacheSizes& cache_sizes,
     const ArgsManager& args)
 {
     const CChainParams& chainparams = Params();
