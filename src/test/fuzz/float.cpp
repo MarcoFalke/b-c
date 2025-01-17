@@ -24,22 +24,24 @@ FUZZ_TARGET(float)
                 // an actual number
                 [&] { tmp = fuzzed_data_provider.ConsumeFloatingPoint<double>(); },
                 // special numbers and NANs
-                [&] { tmp = fuzzed_data_provider.PickValueInArray({
-                          std::numeric_limits<double>::infinity(),
-                          -std::numeric_limits<double>::infinity(),
-                          std::numeric_limits<double>::min(),
-                          -std::numeric_limits<double>::min(),
-                          std::numeric_limits<double>::max(),
-                          -std::numeric_limits<double>::max(),
-                          std::numeric_limits<double>::lowest(),
-                          -std::numeric_limits<double>::lowest(),
-                          std::numeric_limits<double>::quiet_NaN(),
-                          -std::numeric_limits<double>::quiet_NaN(),
-                          std::numeric_limits<double>::signaling_NaN(),
-                          -std::numeric_limits<double>::signaling_NaN(),
-                          std::numeric_limits<double>::denorm_min(),
-                          -std::numeric_limits<double>::denorm_min(),
-                      }); },
+                [&] {
+                    tmp = fuzzed_data_provider.PickValueInArray({
+                        std::numeric_limits<double>::infinity(),
+                        -std::numeric_limits<double>::infinity(),
+                        std::numeric_limits<double>::min(),
+                        -std::numeric_limits<double>::min(),
+                        std::numeric_limits<double>::max(),
+                        -std::numeric_limits<double>::max(),
+                        std::numeric_limits<double>::lowest(),
+                        -std::numeric_limits<double>::lowest(),
+                        std::numeric_limits<double>::quiet_NaN(),
+                        -std::numeric_limits<double>::quiet_NaN(),
+                        std::numeric_limits<double>::signaling_NaN(),
+                        -std::numeric_limits<double>::signaling_NaN(),
+                        std::numeric_limits<double>::denorm_min(),
+                        -std::numeric_limits<double>::denorm_min(),
+                    });
+                },
                 // Anything from raw memory (also checks that DecodeDouble doesn't crash on any input)
                 [&] { tmp = DecodeDouble(fuzzed_data_provider.ConsumeIntegral<uint64_t>()); });
             return *tmp;
